@@ -1,0 +1,35 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    
+    <h1>Welcome to the Home Page</h1>
+    <div id="paragraph-container">
+       <!-- Display content -->
+<p>{{ Paragraph.content }}</p>
+
+<!-- Display Edit button for admin and editor -->
+{% if can_edit %}
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="content">{{ Paragraph.content }}</textarea>
+    <button type="submit" name="edit">Edit</button>
+</form>
+{% endif %}
+
+<!-- Display Delete button only for admin -->
+{% if can_delete %}
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" name="delete">Delete</button>
+</form>
+{% endif %}
+
+    </div>
+</body>
+</html>
