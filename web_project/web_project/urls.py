@@ -24,8 +24,14 @@ from myapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.register, name='register'),
+    path('register/', views.register, name='register'),
+    path('', views.login, name='login'),
     path('home/', views.home, name='home'),
+    path('update/<int:id>/', views.update_paragraph, name='update_paragraph'),
+    path('delete/<int:pk>/', views.delete_paragraph, name='delete_paragraph'),
+    path('create_paragraph/', views.create_paragraph, name='create_paragraph'),
+   
+
    
 ]
 

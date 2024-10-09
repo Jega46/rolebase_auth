@@ -1,35 +1,49 @@
-<!-- home.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>User Role and Paragraphs</title>
+
 </head>
+
 <body>
-    
-    <h1>Welcome to the Home Page</h1>
-    <div id="paragraph-container">
-       <!-- Display content -->
-<p>{{ Paragraph.content }}</p>
+    <h1>Username: {{ username }}</h1>
 
-<!-- Display Edit button for admin and editor -->
-{% if can_edit %}
-<form method="POST">
-    {% csrf_token %}
-    <textarea name="content">{{ Paragraph.content }}</textarea>
-    <button type="submit" name="edit">Edit</button>
-</form>
-{% endif %}
+    {% if user_role %}
+    <h3>Your role is: {{ user_role }}</h3>
+    {% else %}
+    <p>You do not have a specific role assigned.</p>
+    {% endif %}
 
-<!-- Display Delete button only for admin -->
-{% if can_delete %}
-<form method="POST">
-    {% csrf_token %}
-    <button type="submit" name="delete">Delete</button>
-</form>
-{% endif %}
+    <p><b>Paragraph : {{paragraph.content}}</b></p>
 
-    </div>
+
+    <!-- Role-Based Action Buttons -->
+    {% if paragraph %}
+    <!-- Display the paragraph and action buttons if a paragraph exists -->
+    <form method="post" action="{% url 'update_paragraph' paragraph.id %}">
+        {% csrf_token %}
+        <textarea name="content" rows="4" cols="50">{{ paragraph.content }}</textarea>
+        <br>
+        <div>
+            {% if user_role == 'admin' %}
+            <button type="submit">Update</button>
+            <a href="{% url 'delete_paragraph' paragraph.id %}" style="color: red;">Delete</a>
+            {% elif user_role == 'editor' %}
+            <button type="submit">Update</button>
+            {% endif %}
+        </div>
+    </form>
+    {% else %}
+    <!-- Show the "Create New Paragraph" section if no paragraph exists -->
+    <p>No paragraphs available.</p>
+    <form method="post" action="{% url 'create_paragraph' %}">
+        {% csrf_token %}
+        <textarea name="content" rows="4" cols="50" placeholder="Enter paragraph content"></textarea>
+        <br>
+        <button type="submit" class="btn btn-primary">Create New Paragraph</button>
+    </form>
+    {% endif %}
 </body>
+
 </html>

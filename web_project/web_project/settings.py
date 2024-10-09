@@ -78,11 +78,14 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jegadb',
+        'NAME': 'defaultdb',
         'USER': 'avnadmin',
         'PASSWORD': 'AVNS_FU1ZQAAyxgA42p27ari',
         'HOST': 'mysql-d1d05de-jegatharevathi49-b521.k.aivencloud.com',
         'PORT': '15420',
+         'OPTIONS': {
+            'connect_timeout': 30,  # Increase timeout to 30 seconds
+        }
     }
 }
 
