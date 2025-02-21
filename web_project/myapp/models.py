@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 
@@ -27,7 +27,7 @@ class Paragraph(models.Model):
         return self.content[:50]
     
 
-
+ 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_role = models.CharField(max_length=50)  # Field to store the user's role
